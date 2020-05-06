@@ -8,7 +8,7 @@ name: Regression buid workflow
 
 jobs:
   build:
-    name: Make release apk and upload it to Drive , Slack & send Mail to orgganization about regression build
+    name: Make release apk and upload it to Drive , Slack & send Mail to organization about regression build
     runs-on: ubuntu-latest
 
     steps:
@@ -80,7 +80,7 @@ jobs:
         with:
           token: ${{ secrets.SLACK_SECRETS }}
           initial_comment: ${{ secrets.EMAIL_BODY }}
-          path: app/build/outputs/apk/prodFlavour/debug/app-prodFlavour-debug.apk
+          path: app/build/outputs/apk/release/app-release.apk
           channel: android_ci_cd_test
 
 
