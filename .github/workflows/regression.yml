@@ -37,7 +37,7 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         env:
-          BRANCH_NAME: steps.replace_string.outputs.result
+          BRANCH_NAME: steps.branch_name.outputs.branch
 
 
       - name: Replace string
