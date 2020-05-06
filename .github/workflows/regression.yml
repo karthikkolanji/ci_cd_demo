@@ -38,17 +38,18 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
 
-      - name: Find and Replace
+      - name: Extract branch name
         id: replaced_name
-        uses: jacobtomlinson/gha-find-replace@master
+        uses: frabert/replace-string-action@v1.1
         with:
-          find: steps.branch_name.outputs.branch
-          replace: "merchant"
+          pattern: 'release, (\w+)!'
+          string: steps.branch_name.outputs.branch
+          replace-with: 'merchant'
 
       - name: Echo
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
-          echo ${{ steps.replaced_name.outputs.modifiedFiles }}
+          echo ${{ steps.replaced_name.outputs.replaced }}
 
 
       - name: Setup JDK 1.8
