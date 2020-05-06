@@ -1,13 +1,12 @@
 on:
   push:
     branch:
-      - 'cicdTest/*'
+      - 'release/*'
 
 name: Regression buid workflow
 
 
 jobs:
-  job1:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,11 +28,6 @@ jobs:
         working-directory: .github/workflows/
         run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
-      - name: Create Release Notes
-        uses: docker://decathlon/release-notes-generator-action:2.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USE_MILESTONE_TITLE: "true"
 
 
       - name: Setup JDK 1.8
@@ -45,7 +39,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build Release APK
-        run: bash ./gradlew assembleProdFlavourDebug
+        run: bash ./gradlew assembleRelease
 
 
       - name: Upload APK to Google Drive
