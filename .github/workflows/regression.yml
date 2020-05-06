@@ -43,7 +43,7 @@ jobs:
         uses: frabert/replace-string-action@v1.1
         with:
           pattern: 'release, (\w+)!'
-          string: steps.branch_name.outputs.branch
+          string: 'release1'
           replace-with: 'merchant'
 
       - name: Echo
