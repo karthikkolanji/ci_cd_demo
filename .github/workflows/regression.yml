@@ -43,8 +43,8 @@ jobs:
         uses: frabert/replace-string-action@v1.1
         with:
           pattern: 'release, (\a-z0-9+)!'
-          string: 'release1'
-          replace-with: 'merchant'
+          string: 'merchant'
+          replace-with: 'release1'
 
       - name: Echo
         run: |
