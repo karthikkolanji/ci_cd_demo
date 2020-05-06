@@ -1,0 +1,48 @@
+def loadFirebaseGroup() {
+    String group = "testing-team"
+
+    String groupEnvVar = "$System.env.GROUP"
+    if (groupEnvVar != null && !groupEnvVar.isEmpty() && !groupEnvVar.equals("null")) {
+        group = groupEnvVar
+    }
+    println 'Task Started with Group=' + group
+    return group
+}
+
+def loadReleaseFormat() {
+    String releaseFormat = "{currentVersionName}-{branchName}"
+
+    String groupEnvVar = "$System.env.RELEASE_FORMAT"
+    if (groupEnvVar != null && !groupEnvVar.isEmpty() && !groupEnvVar.equals("null")) {
+        releaseFormat = groupEnvVar
+    }
+    println 'Task Started with Release Format=' + releaseFormat
+    return releaseFormat
+}
+
+
+Properties loadConfig(param) {
+    String buildType = "default"
+
+    if (gradle.startParameter.taskNames[0] != null &&
+            gradle.startParameter.taskNames[0].contains("Release")) {
+        buildType = "release"
+    }
+
+    String buildTypeEnvVar = "$System.env.BUILD_TYPE"
+    if (buildTypeEnvVar != null && !buildTypeEnvVar.isEmpty() && !buildTypeEnvVar.equals("null")) {
+        buildType = buildTypeEnvVar
+    }
+    println 'Task Started with BUILD_TYPE=' + buildType
+    def configFile = String.format("./.config/%s/config.properties", buildType)
+    def config = new Properties()
+    config.load(new FileInputStream(rootProject.file(configFile)))
+    return config
+}
+
+// Export methods by turning them into closures
+ext {
+    loadFirebaseGroup = this.&loadFirebaseGroup
+    loadConfig = this.&loadConfig
+    loadReleaseFormat = this.&loadReleaseFormat
+}

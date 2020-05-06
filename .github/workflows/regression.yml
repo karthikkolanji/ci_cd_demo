@@ -1,0 +1,89 @@
+on:
+  push:
+    branch:
+      - 'cicdTest/*'
+
+name: Regression buid workflow
+
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install pip
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/workflows/requirements.txt
+
+
+      - name: Generate Change logs
+        id: changelogs
+        working-directory: .github/workflows/
+        run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
+
+      - name: Create Release Notes
+        uses: docker://decathlon/release-notes-generator-action:2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USE_MILESTONE_TITLE: "true"
+
+
+      - name: Setup JDK 1.8
+        uses: actions/setup-java@master
+        with:
+          java-version: 1.8
+
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+
+      - name: Build Release APK
+        run: bash ./gradlew assembleProdFlavourDebug
+
+
+      - name: Upload APK to Google Drive
+        uses: satackey/action-google-drive@v1
+        with:
+          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+          upload-from: app/build/outputs/apk/release/app-release.apk
+          upload-to: /release_apks
+
+      - name: Echo
+        run: |
+          echo ${{ steps.branch_name.outputs.branch }}
+
+
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.GMAIL_USER_NAME }}
+          password: ${{ secrets.GMAIL_PASSWORD }}
+          subject: Android Regression CI/CD Test
+          # Literal body:
+          body: ${{ secrets.EMAIL_BODY }}
+          to: karthik@okcredit.in
+          from: ${{ secrets.GMAIL_USER_NAME }}
+          ## Optional content type (defaults to text/plain):
+          content_type: text/html
+          # Optional attachments:
+          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
+
+
+      - name: Upload APK to Slack
+        uses: adrey/slack-file-upload-action@master
+        with:
+          token: ${{ secrets.SLACK_SECRETS }}
+          initial_comment: ${{ secrets.EMAIL_BODY }}
+          path: app/build/outputs/apk/prodFlavour/debug/app-prodFlavour-debug.apk
+          channel: android_ci_cd_test
+
+

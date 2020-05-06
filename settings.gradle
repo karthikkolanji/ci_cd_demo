@@ -1,0 +1,2 @@
+rootProject.name='CI_CD_DemoApp'
+include ':app'
