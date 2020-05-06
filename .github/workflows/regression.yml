@@ -42,7 +42,7 @@ jobs:
         id: replaced_name
         uses: frabert/replace-string-action@v1.1
         with:
-          pattern: 'release, (\w+)!'
+          pattern: 'release, (\a-z0-9+)!'
           string: 'release1'
           replace-with: 'merchant'
 
