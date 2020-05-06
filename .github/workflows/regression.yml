@@ -43,7 +43,7 @@ jobs:
         uses: BjornLuG/substitute-string-action@v1
           with:
             _input-text: steps.sub.outputs.result
-            World: GitHub
+            World: release
 
       - name: Echo
         run: |
