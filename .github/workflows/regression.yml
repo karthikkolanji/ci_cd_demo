@@ -36,12 +36,19 @@ jobs:
         id: branch_name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        env:
-          APK_NAME: echo ${{ steps.branch_name.outputs.branch//release/edited }}
+
+
+      - name: Find and Replace
+        id: replaced_name
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: steps.branch_name.outputs.branch
+          replace: "merchant"
 
       - name: Echo
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
+          echo ${{ steps.replaced_name.outputs.modifiedFiles }}
 
 
       - name: Setup JDK 1.8
