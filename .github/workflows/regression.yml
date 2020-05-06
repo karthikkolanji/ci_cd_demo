@@ -42,7 +42,7 @@ jobs:
         id: replace_string
         uses: BjornLuG/substitute-string-action@v1
         with:
-          _input-text: steps.sub.outputs.result
+          _input-text: steps.branch_name.outputs.branch
           World: release
 
       - name: Echo
