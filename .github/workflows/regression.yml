@@ -38,18 +38,17 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
 
-      - name: Extract branch name
-        id: replaced_name
-        uses: frabert/replace-string-action@v1.1
-        with:
-          pattern: 'release, (\a-z0-9+)!'
-          string: 'merchant'
-          replace-with: 'release1'
+      - name: Replace string
+        id: replace_string
+        uses: BjornLuG/substitute-string-action@v1
+          with:
+            _input-text: steps.sub.outputs.result
+            World: GitHub
 
       - name: Echo
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
-          echo ${{ steps.replaced_name.outputs.replaced }}
+          echo ${{ steps.replace_string.outputs.result }}
 
 
       - name: Setup JDK 1.8
