@@ -40,7 +40,7 @@ jobs:
       - name: Echo
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
-          echo ${{ steps.branch_name.outputs.branch/release/edites }}
+          echo ${{ steps.branch_name.outputs.branch//release/edited }}
 
       - name: Setup JDK 1.8
         uses: actions/setup-java@master
