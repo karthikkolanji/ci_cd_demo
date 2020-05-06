@@ -43,7 +43,7 @@ jobs:
         uses: BjornLuG/substitute-string-action@v1
         with:
           _input-text: release1
-          World: merchant
+          release: merchant
 
       - name: Echo
         run: |
