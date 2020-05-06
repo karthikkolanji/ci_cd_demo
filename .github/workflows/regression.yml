@@ -36,14 +36,17 @@ jobs:
         id: branch_name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        env:
+          BRANCH_NAME: steps.replace_string.outputs.result
 
 
       - name: Replace string
         id: replace_string
         uses: BjornLuG/substitute-string-action@v1
         with:
-          _input-text: echo ${{ steps.branch_name.outputs.branch }}
+          _input-text: $BRANCH_NAME
           release: merchant
+
 
       - name: Echo
         run: |
