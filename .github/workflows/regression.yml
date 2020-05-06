@@ -32,6 +32,10 @@ jobs:
         run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
 
+      - name: Extract branch name
+        id: branch_name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Setup JDK 1.8
         uses: actions/setup-java@master
