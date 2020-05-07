@@ -70,6 +70,18 @@ jobs:
         working-directory: app/build/outputs/apk/release/
         run: echo "::set-output name=apk_name::$(echo *.apk)"
 
+      - name: Getting build no & tag name
+        uses: jungwinter/split@v1
+        id: split
+        with:
+          msg: ${{ steps.list_files.outputs.apk_name }}
+          seperator: '-'
+
+      - name: Echo
+        run: |
+          echo ${{ steps.split.outputs._0 }}
+          echo ${{ steps.split.outputs._1 }}
+
       - name: Echo
         run: |
           echo ${{ steps.list_files.outputs.apk_name }}
