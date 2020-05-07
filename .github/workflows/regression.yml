@@ -70,7 +70,7 @@ jobs:
         id: list_files
         working-directory: app/build/outputs/apk/release/
 #        run: echo "::set-output name=apk_name::${ls *.apk}"
-        run: echo "::set-output name=apk_name::$(echo -n ls *.apk)"
+        run: echo "::set-output name=apk_name::$(echo ls *.apk)"
 
       - name: Echo
         run: |
