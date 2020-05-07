@@ -29,7 +29,7 @@ jobs:
       - name: Generate Change logs
         id: changelogs
         working-directory: .github/workflows/
-        run: echo "::set-output name=changelog::$(echo python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21)"
+        run: echo "::set-output name=changelog::$(run python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21)"
 
       #        run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
@@ -68,10 +68,9 @@ jobs:
         run: bash ./gradlew assembleRelease
 
 
-      - name: Listing files in directory
+      - name: Getting generated APK name
         id: list_files
         working-directory: app/build/outputs/apk/release/
-#        run: echo "::set-output name=apk_name::${ls *.apk}"
         run: echo "::set-output name=apk_name::$(echo *.apk)"
 
       - name: Echo
