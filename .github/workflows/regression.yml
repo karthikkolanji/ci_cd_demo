@@ -34,6 +34,33 @@ jobs:
 
 
 
+      - name: Generate changelog
+        uses: charmixer/auto-changelog-action@v1
+        with:
+          token: ${{ GITHUB_TOKEN }}
+
+      - name: Commit files
+        env:
+          CI_USER: karthikkolanji
+          CI_EMAIL: karthik.kolanji90@gmail.com
+        run: |
+          git config --local user.email "$CI_EMAIL"
+          git config --local user.name "$CI_USER"
+          git add CHANGELOG.md && git commit -m 'Updated CHANGELOG.md' && echo ::set-env name=push::1 || echo "No changes to CHANGELOG.md"
+
+      - name: Push changes
+        if: env.push == 1
+        env:
+          CI_USER: karthikkolanji
+          CI_EMAIL: karthik.kolanji90@gmail.com
+        run: |
+          git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:master
+
+
+
+
+
+
       - name: Extract branch name
         id: branch_name
         shell: bash
