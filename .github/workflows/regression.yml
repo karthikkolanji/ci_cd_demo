@@ -15,21 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: karthik.androidapps@gmail.com
-          password: karthik54181
-          subject: Android Regression CI/CD Test
-          body: gggjg
-          to: karthik@okcredit.in
-          from: ${{ secrets.GMAIL_USER_NAME }}
-          content_type: text/html
-          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
-
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
@@ -97,6 +82,19 @@ jobs:
           upload-to: /release_apks
 
 
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: karthik.androidapps@gmail.com
+          password: karthik54181
+          subject: Android Regression CI/CD Test
+          body: ${{ steps.changelogs.outputs.changelog }}
+          to: karthik@okcredit.in
+          from: ${{ secrets.GMAIL_USER_NAME }}
+          content_type: text/html
+          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
 
 
       - name: Upload APK to Slack
