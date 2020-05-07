@@ -29,9 +29,8 @@ jobs:
       - name: Generate Change logs
         id: changelogs
         working-directory: .github/workflows/
-        run: echo "::set-output name=changelog::$(echo python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21)"
-
-      #        run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
+        #        run: echo "::set-output name=changelog::$(echo python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21)"
+        run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
 
 
@@ -85,22 +84,22 @@ jobs:
           upload-to: /release_apks
 
 
-#      - name: Send mail
-#        uses: dawidd6/action-send-mail@v2
-#        with:
-#          server_address: smtp.gmail.com
-#          server_port: 465
-#          username: ${{ secrets.GMAIL_USER_NAME }}
-#          password: ${{ secrets.GMAIL_PASSWORD }}
-#          subject: Android Regression CI/CD Test
-#          # Literal body:
-#          body: ${{ secrets.EMAIL_BODY }}
-#          to: karthik@okcredit.in
-#          from: ${{ secrets.GMAIL_USER_NAME }}
-#          ## Optional content type (defaults to text/plain):
-#          content_type: text/html
-#          # Optional attachments:
-#          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
+      #      - name: Send mail
+      #        uses: dawidd6/action-send-mail@v2
+      #        with:
+      #          server_address: smtp.gmail.com
+      #          server_port: 465
+      #          username: ${{ secrets.GMAIL_USER_NAME }}
+      #          password: ${{ secrets.GMAIL_PASSWORD }}
+      #          subject: Android Regression CI/CD Test
+      #          # Literal body:
+      #          body: ${{ secrets.EMAIL_BODY }}
+      #          to: karthik@okcredit.in
+      #          from: ${{ secrets.GMAIL_USER_NAME }}
+      #          ## Optional content type (defaults to text/plain):
+      #          content_type: text/html
+      #          # Optional attachments:
+      #          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
 
 
       - name: Upload APK to Slack
