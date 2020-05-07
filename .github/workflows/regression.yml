@@ -23,7 +23,7 @@ jobs:
           username: karthik.androidapps
           password: karthik54181
           subject: Android Regression CI/CD Test
-          body: ${{ steps.replace_string.outputs.result }}
+          body: gggjg
           to: karthik@okcredit.in
           from: ${{ secrets.GMAIL_USER_NAME }}
           content_type: text/html
