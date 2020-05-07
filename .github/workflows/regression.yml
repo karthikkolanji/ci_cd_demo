@@ -16,18 +16,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Send mail
-          uses: dawidd6/action-send-mail@v2
-          with:
-            server_address: smtp.gmail.com
-            server_port: 465
-            username: karthik.androidapps
-            password: karthik54181
-            subject: Android Regression CI/CD Test
-            body: ${{ steps.replace_string.outputs.result }}
-            to: karthik@okcredit.in
-            from: ${{ secrets.GMAIL_USER_NAME }}
-            content_type: text/html
-            #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: karthik.androidapps
+          password: karthik54181
+          subject: Android Regression CI/CD Test
+          body: ${{ steps.replace_string.outputs.result }}
+          to: karthik@okcredit.in
+          from: ${{ secrets.GMAIL_USER_NAME }}
+          content_type: text/html
+          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
 
 
       - name: Set up Python ${{ matrix.python-version }}
