@@ -10,6 +10,8 @@ jobs:
   build:
     name: Make release apk and upload it to Drive , Slack & send Mail to organization about regression build
     runs-on: ubuntu-latest
+    env:
+      APK_DIRECTORY: app/build/outputs/apk/release/
 
     steps:
       - name: Checkout code
@@ -66,7 +68,7 @@ jobs:
 
       - name: Listing files in directory
         id: list_files
-        working-directory: app/build/outputs/apk/release/
+        working-directory: ${{APK_DIRECTORY}}
         run: ls *.apk
 
 
@@ -74,7 +76,7 @@ jobs:
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          upload-from: app/build/outputs/apk/release/app-release.apk
+          upload-from: ${{APK_DIRECTORY}}app-release.apk
           upload-to: /release_apks
 
 
