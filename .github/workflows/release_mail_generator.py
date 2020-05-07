@@ -93,23 +93,6 @@ class ReleaseMailGenerator:
 
         github = Github(login_or_token=auth_token, per_page=self.PAGE_ITEM_COUNT)
         repo = github.get_repo("karthikkolanji/ShaadiDemo")
-        pull_requests = self.get_pull_requests(repo, milestone)
-        #if not pull_requests:
-            print('---------------------------------------------------------------------------------------\n')
-            print('No pull requests found for given Milestone, Please check \n')
-            print('----------------------------------------------------------------------------------------')
-            #return
-        pull_request_label_map = self.get_pull_request_label_map(repo, pull_requests)
-
-        if not pull_request_label_map:
-            print('---------------------------------------------------------------------------------------\n')
-            print('No pull requests is merged for given Milestone, Please check \n')
-            print('----------------------------------------------------------------------------------------')
-            #return
-
-        #changelog = self.MESSAGE.format(milestone) + self.INTERNAL_TEST_DISCLAIMER + self.TITLE_TAG_TMPL.format('Changelog')
-        #for label, pull_requests_list in pull_request_label_map.items():
-           # changelog += self.get_pull_request_details(label, pull_requests_list)
 
         changelog='<p>Android app v2.21 has been pushed to Play Store on internal track. Please review the build and give sign off soon</p><p>Click on the following link to join internal test distribution program on Play Store</p><a href="https://play.google.com/apps/internaltest/4701420873898948487">https://play.google.com/apps/internaltest/4701420873898948487</a><h2>Changelog</h2><br/><b><i>Platform</i></b><ul style="list-style-type:disc"><li>Backmerge 2.20.1<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/696"> (#696)</a> by anjalsaneen<br/></li><li>Hotfix/home screen cleaning<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/693"> (#693)</a> by anjalsaneen<br/></li><li>Backmerge 2.20.0<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/669"> (#669)</a> by anjalsaneen<br/></li><li>Modularization UseCase<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/666"> (#666)</a> by Nishant Shah<br/></li><li>Title: github issue fixes<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/657"> (#657)</a> by balsikandar-okcredit<br/></li><li>Runs workflow while changing milestone again.<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/645"> (#645)</a> by anjalsaneen<br/></li><li>Filter out Pull requests which is not to develop<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/643"> (#643)</a> by anjalsaneen<br/></li></ul><br/><b><i>Core Experience</i></b><ul style="list-style-type:disc"><li>Hotfix/toolbar backbutton<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/651"> (#651)</a> by anjalsaneen<br/></li></ul><br/><b><i>Product Initiatives</i></b><ul style="list-style-type:disc"><li>Feature/supplier payments<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/615"> (#615)</a> by balsikandar-okcredit<br/></li></ul><br/><b><i>Collections</i></b><ul style="list-style-type:disc"><li>Feature/supplier payments<a target="_blank" href="https://github.com/okcredit/merchant-android/pull/615"> (#615)</a> by balsikandar-okcredit<br/></li></ul>'
         return changelog
