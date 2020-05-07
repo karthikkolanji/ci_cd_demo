@@ -33,7 +33,7 @@ jobs:
         run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
       - name: Generate changelog
-        id: changeloga
+        id: changelog1
         uses: metcalfc/changelog-generator@v0.3.2
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
@@ -57,7 +57,7 @@ jobs:
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
           echo ${{ steps.replace_string.outputs.result }}
-          echo "${{ steps.changeloga.outputs.changelog }}"
+          echo ${{ steps.changelog1.outputs.changelog }}
 
 
       - name: Setup JDK 1.8
