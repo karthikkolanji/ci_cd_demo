@@ -32,33 +32,11 @@ jobs:
         #        run: echo "::set-output name=changelog::$(echo python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21)"
         run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
-
-
       - name: Generate changelog
-        uses: charmixer/auto-changelog-action@v1
+        id: changeloga
+        uses: metcalfc/changelog-generator@v0.3.2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit files
-        env:
-          CI_USER: karthikkolanji
-          CI_EMAIL: karthik.kolanji90@gmail.com
-        run: |
-          git config --local user.email "$CI_EMAIL"
-          git config --local user.name "$CI_USER"
-          git add CHANGELOG.md && git commit -m 'Updated CHANGELOG.md' && echo ::set-env name=push::1 || echo "No changes to CHANGELOG.md"
-
-      - name: Push changes
-        if: env.push == 1
-        env:
-          CI_USER: karthikkolanji
-          CI_EMAIL: karthik.kolanji90@gmail.com
-        run: |
-          git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:master
-
-
-
-
+          myToken: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Extract branch name
@@ -79,7 +57,7 @@ jobs:
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
           echo ${{ steps.replace_string.outputs.result }}
-          echo ${{ steps.changelogs.outputs.changelog }}
+          echo "${{ steps.changeloga.outputs.changelog }}"
 
 
       - name: Setup JDK 1.8
