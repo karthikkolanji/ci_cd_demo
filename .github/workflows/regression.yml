@@ -57,7 +57,6 @@ jobs:
         run: |
           echo ${{ steps.branch_name.outputs.branch }}
           echo ${{ steps.replace_string.outputs.result }}
-          echo ${{ github.milestone }}
 
 
       - name: Setup JDK 1.8
@@ -89,26 +88,26 @@ jobs:
           upload-to: /release_apks
 
 
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v2
-        with:
-        server_address: smtp.gmail.com
-        server_port: 465
-        username: ${{ secrets.GMAIL_USER_NAME }}
-        password: ${{ secrets.GMAIL_PASSWORD }}
-        subject: Android Regression CI/CD Test
-        body: ${{ secrets.EMAIL_BODY }}
-        to: karthik@okcredit.in
-        from: ${{ secrets.GMAIL_USER_NAME }}
-        content_type: text/html
-        #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
+#      - name: Send mail
+#        uses: dawidd6/action-send-mail@v2
+#        with:
+#        server_address: smtp.gmail.com
+#        server_port: 465
+#        username: ${{ secrets.GMAIL_USER_NAME }}
+#        password: ${{ secrets.GMAIL_PASSWORD }}
+#        subject: Android Regression CI/CD Test
+#        body: ${{ secrets.EMAIL_BODY }}
+#        to: karthik@okcredit.in
+#        from: ${{ secrets.GMAIL_USER_NAME }}
+#        content_type: text/html
+#        #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
 
 
       - name: Upload APK to Slack
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_SECRETS }}
-          initial_comment: ${{ secrets.EMAIL_BODY }}
+          initial_comment: ${{ steps.changelogs.outputs.changelog }}
           path: app/build/outputs/apk/release/${{steps.list_files.outputs.apk_name}}
           channel: android_ci_cd_test
 
