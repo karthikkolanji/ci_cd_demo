@@ -20,7 +20,7 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: karthik.androidapps
+          username: karthik.androidapps@gmail.com
           password: karthik54181
           subject: Android Regression CI/CD Test
           body: gggjg
