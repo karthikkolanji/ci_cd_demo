@@ -111,6 +111,8 @@ class ReleaseMailGenerator:
         for label, pull_requests_list in pull_request_label_map.items():
             changelog += self.get_pull_request_details(label, pull_requests_list)
 
+        print(changelog)
+
         return changelog
 
 
