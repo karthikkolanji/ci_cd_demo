@@ -1,17 +1,18 @@
+name: Regression buid workflow
+
 on:
   push:
     branch:
       - 'release/*'
 
-name: Regression buid workflow
-
+env:
+  APK_DIRECTORY: app/build/outputs/apk/release/
 
 jobs:
   build:
     name: Make release apk and upload it to Drive , Slack & send Mail to organization about regression build
     runs-on: ubuntu-latest
-    env:
-      APK_DIRECTORY: app/build/outputs/apk/release/
+
 
     steps:
       - name: Checkout code
