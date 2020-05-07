@@ -82,7 +82,7 @@ jobs:
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          upload-from: app/build/outputs/apk/release/app-release.apk
+          upload-from: app/build/outputs/apk/release/${{steps.list_files.outputs.apk_name}}
           upload-to: /release_apks
 
 
@@ -109,7 +109,7 @@ jobs:
         with:
           token: ${{ secrets.SLACK_SECRETS }}
           initial_comment: ${{ secrets.EMAIL_BODY }}
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/${{steps.list_files.outputs.apk_name}}
           channel: android_ci_cd_test
 
 
