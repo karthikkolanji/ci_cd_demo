@@ -69,7 +69,7 @@ jobs:
 
       - name: Listing files in directory
         id: list_files
-        working-directory: $APK_DIRECTORY
+        working-directory: app/build/outputs/apk/release/
         run: ls *.apk
 
 
