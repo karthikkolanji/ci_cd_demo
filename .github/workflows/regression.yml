@@ -69,8 +69,11 @@ jobs:
       - name: Listing files in directory
         id: list_files
         working-directory: app/build/outputs/apk/release/
-        run: ls *.apk
+        run: echo "::set-output name=apk_name::${ls *.apk}"
 
+      - name: Echo
+          run: |
+            echo ${{ steps.list_files.outputs.apk_name }}
 
       - name: Upload APK to Google Drive
         uses: satackey/action-google-drive@v1
