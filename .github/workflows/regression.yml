@@ -36,15 +36,13 @@ jobs:
         id: branch_name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        env:
-          BRANCH_NAME: steps.branch_name.outputs.branch
 
 
       - name: Replace string
         id: replace_string
         uses: BjornLuG/substitute-string-action@v1
         with:
-          _input-text: $BRANCH_NAME
+          _input-text: ${{ steps.branch_name.outputs.branch }}
           release: merchant
 
 
@@ -64,6 +62,11 @@ jobs:
 
       - name: Build Release APK
         run: bash ./gradlew assembleRelease
+
+
+      - name: Listing files in directory
+        id: list_files
+        run: ls app/build/outputs/apk/release
 
 
       - name: Upload APK to Google Drive
