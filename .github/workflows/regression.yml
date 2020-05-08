@@ -99,7 +99,7 @@ jobs:
       - name: Adding 'mi' prefix to apk name
         id: prefix
         working-directory: app/build/outputs/apk/release/
-        run: echo "::set-output name=mi_apk::$(mv ${{steps.list_files.outputs.apk_name}} mi-${{steps.list_files.outputs.apk_name}})"
+        run: echo "::set-output name=mi_apk::$(mv ${{steps.list_files.outputs.apk_name}} xxx-${{steps.list_files.outputs.apk_name}})"
 
 
 
