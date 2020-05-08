@@ -56,7 +56,7 @@ jobs:
 
       - name: Tag name
         run: |
-          echo v${{ steps.split_tag.outputs._0 }}${{ steps.split_tag.outputs._1 }}${{ steps.split_tag.outputs._2 }}
+          echo v${{ steps.split_tag.outputs._0 }}.${{ steps.split_tag.outputs._1 }}.${{ steps.split_tag.outputs._2 }}
 
       - name: Extract branch name
         id: branch_name
