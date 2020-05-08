@@ -106,6 +106,7 @@ jobs:
       - name: Echo apk name
         run: |
           echo ${{ steps.list_files.outputs.apk_name }}
+          echo ${{ steps.apk_name_mi_prefix.outputs.mi_prefix_apk_name }}
 
       - name: Upload APK to Google Drive
         uses: satackey/action-google-drive@v1
