@@ -36,27 +36,27 @@ jobs:
 
       - name: Getting build no & tag name
         uses: jungwinter/split@v1
-        id: tag name
+        id: build_info
         with:
           msg: merchant-418-2.20.1.apk
           seperator: '-'
 
       - name: Echo build info
         run: |
-          echo ${{ steps.split.outputs._0 }}
-          echo build no ${{ steps.split.outputs._1 }}
-          echo ${{ steps.split.outputs._3 }}
+          echo ${{ steps.build_info.outputs._0 }}
+          echo build no ${{ steps.build_info.outputs._1 }}
+          echo ${{ steps.build_info.outputs._3 }}
 
       - name: Splitting for tag name
         uses: jungwinter/split@v1
         id: split_tag
         with:
-          msg: ${{ steps.split.outputs._3 }}
+          msg: ${{ steps.build_info.outputs._3 }}
           seperator: '.'
 
       - name: Tag name
         run: |
-          echo v${{ steps.split.outputs._0 }}
+          echo v${{ steps.split_tag.outputs._0 }}
 
       - name: Extract branch name
         id: branch_name
