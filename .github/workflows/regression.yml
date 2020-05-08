@@ -63,6 +63,8 @@ jobs:
       - name: Tag name
         run: |
           echo v${{ steps.split_tag.outputs._0 }}.${{ steps.split_tag.outputs._1 }}.${{ steps.split_tag.outputs._2 }}
+          echo BBB ${BUILD_NO}
+          echo BBB ${APP_VERSION}
 
       - name: Extract branch name
         id: branch_name
