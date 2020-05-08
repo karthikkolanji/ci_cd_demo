@@ -40,7 +40,7 @@ jobs:
         with:
           msg: merchant-418-2.20.1.apk
           seperator: '-'
-        evn:
+        env:
           BUILD_NO: ${{ steps.build_info.outputs._1 }}
           APP_VERSION: ${{ steps.build_info.outputs._2 }}
 
