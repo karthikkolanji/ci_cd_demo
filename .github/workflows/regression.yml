@@ -99,7 +99,6 @@ jobs:
       - name: Adding 'mi' prefix to apk name
         id: prefix
         working-directory: app/build/outputs/apk/release/
-#        run: mv ${{steps.list_files.outputs.apk_name}} mi-${{steps.list_files.outputs.apk_name}}
         run: echo "::set-output name=mi_apk::$(mv ${{steps.list_files.outputs.apk_name}} mi-${{steps.list_files.outputs.apk_name}})"
 
 
@@ -119,30 +118,25 @@ jobs:
           upload-to: /release_apks
 
 
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.GMAIL_USER_NAME }}
-          password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: Android Regression CI/CD Test
-          body: ${{ steps.changelogs.outputs.changelog }}
-          to: karthik@okcredit.in
-          from: ${{ secrets.GMAIL_USER_NAME }}
-          content_type: text/html
-          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
+#      - name: Send mail
+#        uses: dawidd6/action-send-mail@v2
+#        with:
+#          server_address: smtp.gmail.com
+#          server_port: 465
+#          username: ${{ secrets.GMAIL_USER_NAME }}
+#          password: ${{ secrets.GMAIL_PASSWORD }}
+#          subject: Android Regression CI/CD Test
+#          body: ${{ steps.changelogs.outputs.changelog }}
+#          to: karthik@okcredit.in
+#          from: ${{ secrets.GMAIL_USER_NAME }}
+#          content_type: text/html
+#          #attachments: app/build/outputs/apk/prodFlavour/artifacts/newYorlTimes
 
 
       - name: Upload APK to Slack
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_SECRETS }}
-          initial_comment: Release Build for Branch ``` ${{github.event.pull_request.head.ref}} ```
-            Author ```${{github.event.sender.login}}```
-            Title ```${{github.event.pull_request.title}}```
-            URL ${{github.event.pull_request.url}}
-            ```${{github.event.pull_request.body}}```
           path: app/build/outputs/apk/release/${{steps.list_files.outputs.apk_name}}
           channel: android_ci_cd_test
 
