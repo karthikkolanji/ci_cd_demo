@@ -99,7 +99,7 @@ jobs:
       - name: Adding 'mi' prefix to apk name
         id: apk_name_mi_prefix
         working-directory: app/build/outputs/apk/release/
-        run: echo mv ${{steps.list_files.outputs.apk_name}} mi-${{steps.list_files.outputs.apk_name}}
+        run: mv ${{steps.list_files.outputs.apk_name}} mi-${{steps.list_files.outputs.apk_name}}
 #        run: echo "::set-output name=mi_prefix_apk_name::$(echo mv ${{steps.list_files.outputs.apk_name}} mi-${{steps.list_files.outputs.apk_name}})"
 
 
@@ -113,7 +113,7 @@ jobs:
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          upload-from: app/build/outputs/apk/release/${{ steps.apk_name_mi_prefix.outputs.mi_prefix_apk_name }}
+          upload-from: app/build/outputs/apk/release/${{ mi-${{steps.list_files.outputs.apk_name}} }}
           upload-to: /release_apks
 
 
