@@ -34,7 +34,7 @@ jobs:
 
 
 
-      - name: Getting build no & tag name
+      - name: Getting build info
         uses: jungwinter/split@v1
         id: build_info
         with:
@@ -45,13 +45,13 @@ jobs:
         run: |
           echo ${{ steps.build_info.outputs._0 }}
           echo build no ${{ steps.build_info.outputs._1 }}
-          echo ${{ steps.build_info.outputs._3 }}
+          echo ${{ steps.build_info.outputs._2 }}
 
       - name: Splitting for tag name
         uses: jungwinter/split@v1
         id: split_tag
         with:
-          msg: ${{ steps.build_info.outputs._3 }}
+          msg: ${{ steps.build_info.outputs._2 }}
           seperator: '.'
 
       - name: Tag name
