@@ -99,7 +99,7 @@ jobs:
       - name: Adding 'mi' prefix to apk name
         id: prefix
         working-directory: app/build/outputs/apk/release/
-        run: mv ${{steps.list_files.outputs.apk_name}} xx1-${{steps.list_files.outputs.apk_name}}
+        run: mv ${{steps.list_files.outputs.apk_name}} kop-${{steps.list_files.outputs.apk_name}}
 #        run: echo "::set-output name=mi_apk::$(mv ${{steps.list_files.outputs.apk_name}} xxx-${{steps.list_files.outputs.apk_name}})"
 
 
@@ -111,11 +111,17 @@ jobs:
           echo --------------------------
           echo ${{ steps.list_files.outputs.apk_name }}
 
+
+      - name: Getting renamed APK name
+          id: list_mi_apk
+          working-directory: app/build/outputs/apk/release/
+          run: echo "::set-output name=apk_name::$(echo *.apk)"
+
       - name: Upload APK to Google Drive
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          upload-from: app/build/outputs/apk/release/xx1-${{steps.list_files.outputs.apk_name}}
+          upload-from: app/build/outputs/apk/release/${{steps.list_mi_apk.outputs.apk_name}}
           upload-to: /release_apks
 
 
@@ -138,7 +144,7 @@ jobs:
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_SECRETS }}
-          path: app/build/outputs/apk/release/xx1-${{steps.list_files.outputs.apk_name}}
+          path: app/build/outputs/apk/release/${{steps.list_mi_apk.outputs.apk_name}}
           channel: android_ci_cd_test
 
 
