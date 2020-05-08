@@ -40,11 +40,12 @@ jobs:
         with:
           msg: merchant-418-2.20.1.apk
           seperator: '-'
+
+
+      - name: Echo build info
         env:
           BUILD_NO: ${{ steps.build_info.outputs._1 }}
           APP_VERSION: ${{ steps.build_info.outputs._2 }}
-
-      - name: Echo build info
         run: |
           echo ${{ steps.build_info.outputs._0 }}
           echo build no ${{ steps.build_info.outputs._1 }}
