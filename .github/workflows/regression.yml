@@ -137,7 +137,7 @@ jobs:
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_SECRETS }}
-          path: app/build/outputs/apk/release/${{steps.list_files.outputs.apk_name}}
+          path: app/build/outputs/apk/release/${{steps.prefix.outputs.mi_apk}}
           channel: android_ci_cd_test
 
 
