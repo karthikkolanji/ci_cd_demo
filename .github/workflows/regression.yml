@@ -40,12 +40,17 @@ jobs:
         with:
           msg: merchant-418-2.20.1.apk
           seperator: '-'
+        evn:
+          BUILD_NO: ${{ steps.build_info.outputs._1 }}
+          APP_VERSION: ${{ steps.build_info.outputs._2 }}
 
       - name: Echo build info
         run: |
           echo ${{ steps.build_info.outputs._0 }}
           echo build no ${{ steps.build_info.outputs._1 }}
           echo ${{ steps.build_info.outputs._2 }}
+          echo BBB ${BUILD_NO}
+          echo BBB ${APP_VERSION}
 
       - name: Splitting for tag name
         uses: jungwinter/split@v1
