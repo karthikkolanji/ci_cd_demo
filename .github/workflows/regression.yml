@@ -153,7 +153,7 @@ jobs:
         id: sendmail
         uses: vineetchoudhary/mailgun-action@v1.0
         with:
-          api-key: 76d871f08db442d34a305cdc4544d596-0afbfc6c-d38312c0
+          api-key: pubkey-20de4eb9ac561a086649527cffe4ca42
           domain: sandboxf5aec72fe73745899967b471d866156a.mailgun.org
           to: karthik.kolanji90@gmail.com,nishant@okcredit.in
 
