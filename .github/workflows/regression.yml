@@ -150,3 +150,15 @@ jobs:
           channel: android_ci_cd_test
 
 
+      - name: Send Mail Action
+        id: sendmail
+        uses: vineetchoudhary/mailgun-action@v1.0
+        with:
+          api-key: 76d871f08db442d34a305cdc4544d596-0afbfc6c-d38312c0
+          domain: okcredit.in
+          to: ${{ karthik.kolanji90@gmail.com,nishant@okcredit.in }}
+
+      - name: Send Mail Action Response
+        run: echo "${{ steps.sendmail.outputs.response }}"
+
+
