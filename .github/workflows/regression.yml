@@ -143,6 +143,7 @@ jobs:
       - name: Upload APK to Slack
         uses: adrey/slack-file-upload-action@master
         with:
+          initial_comment: Android Release *v2.20.1* made.\n <${{ secrets.OUT_OF_STORE_GOOGLE_DRIVE_LINK }}|Google Drive Link>
           token: ${{ secrets.SLACK_SECRETS }}
           path: app/build/outputs/apk/release/${{steps.renamed_apk.outputs.apk_name}}
           channel: android_ci_cd_test
