@@ -54,9 +54,12 @@ jobs:
           msg: ${{ steps.build_info.outputs._2 }}
           seperator: '.'
 
-      - name: Tag name
-        run: |
-          echo v${{ steps.split_tag.outputs._0 }}.${{ steps.split_tag.outputs._1 }}.${{ steps.split_tag.outputs._2 }}
+      - name: Make Tag name
+        id: tag_name
+        run: echo "::set-output name=tag_name::v${{ steps.split_tag.outputs._0 }}.${{ steps.split_tag.outputs._1 }}.${{ steps.split_tag.outputs._2 }}"
+
+      - run: |
+          echo ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Extract branch name
         id: branch_name
