@@ -38,7 +38,7 @@ jobs:
         uses: jungwinter/split@v1
         id: build_info
         with:
-          msg: merchant-418-2.20.1.apk
+          msg: merchant-419-2.20.2.apk
           seperator: '-'
 
       - name: Echo build info
