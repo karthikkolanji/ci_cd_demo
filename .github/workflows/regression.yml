@@ -143,21 +143,48 @@ jobs:
       - name: Upload APK to Slack
         uses: adrey/slack-file-upload-action@master
         with:
-          initial_comment: Android Release *v2.20.1* made. \n*Download build* <${{ secrets.OUT_OF_STORE_GOOGLE_DRIVE_LINK }}|Google Drive Link>
+          initial_comment: Android Release *v2.20.1* made. *Download build* <${{ secrets.OUT_OF_STORE_GOOGLE_DRIVE_LINK }}|Google Drive Link>
           token: ${{ secrets.SLACK_SECRETS }}
           path: app/build/outputs/apk/release/${{steps.renamed_apk.outputs.apk_name}}
           channel: android_ci_cd_test
 
 
-      - name: Send Mail Action
-        id: sendmail
-        uses: vineetchoudhary/mailgun-action@v1.0
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          api-key: pubkey-20de4eb9ac561a086649527cffe4ca42
-          domain: sandboxf5aec72fe73745899967b471d866156a.mailgun.org
-          to: karthik.kolanji90@gmail.com,nishant@okcredit.in
+          tag_name: v${{ steps.split_tag.outputs._0 }}.${{ steps.split_tag.outputs._1 }}.${{ steps.split_tag.outputs._2 }}
+          release_name: Release v${{ steps.split_tag.outputs._0 }}.${{ steps.split_tag.outputs._1 }}.${{ steps.split_tag.outputs._2 }}
+          body: |
+            Change Logs
+                - First Change
+                - Second Change
+            draft: false
+            prerelease: false
 
-      - name: Send Mail Action Response
-        run: echo "${{ steps.sendmail.outputs.response }}"
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: app/build/outputs/apk/release/${{steps.renamed_apk.outputs.apk_name}}
+        asset_name: my-artifact.zip
+        asset_content_type: application/zip
+
+
+#      - name: Send Mail Action
+#        id: sendmail
+#        uses: vineetchoudhary/mailgun-action@v1.0
+#        with:
+#          api-key: pubkey-20de4eb9ac561a086649527cffe4ca42
+#          domain: sandboxf5aec72fe73745899967b471d866156a.mailgun.org
+#          to: karthik.kolanji90@gmail.com,nishant@okcredit.in
+#
+#      - name: Send Mail Action Response
+#        run: echo "${{ steps.sendmail.outputs.response }}"
 
 
