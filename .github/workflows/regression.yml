@@ -144,7 +144,7 @@ jobs:
         uses: adrey/slack-file-upload-action@master
         with:
           initial_comment: Android Release *v2.20.1* made.
-            *Download build* <${{ secrets.OUT_OF_STORE_GOOGLE_DRIVE_LINK }}|Google Drive Link>
+              \n*Download build* <${{ secrets.OUT_OF_STORE_GOOGLE_DRIVE_LINK }}|Google Drive Link>
           token: ${{ secrets.SLACK_SECRETS }}
           path: app/build/outputs/apk/release/${{steps.renamed_apk.outputs.apk_name}}
           channel: android_ci_cd_test
@@ -154,7 +154,7 @@ jobs:
         id: sendmail
         uses: vineetchoudhary/mailgun-action@v1.0
         with:
-          api-key: 76d871f08db442d34a305cdc4544d596-0afbfc6c-d38312c0
+          api-key: sandboxf5aec72fe73745899967b471d866156a.mailgun.org
           domain: okcredit.in
           to: karthik.kolanji90@gmail.com,nishant@okcredit.in
 
