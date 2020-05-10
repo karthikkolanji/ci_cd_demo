@@ -2,8 +2,10 @@ name: Regression buid workflow
 
 on:
   push:
-    branch:
+    branches:
       - 'release/*'
+    tags:
+      - 'v**'
 
 jobs:
   build:

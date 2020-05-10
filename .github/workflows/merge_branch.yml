@@ -1,0 +1,30 @@
+name: Regression buid workflow
+
+on:
+  push:
+    branches:
+      - 'release**'
+    tags:
+      - 'v**'
+
+jobs:
+  build:
+    name: merge branch
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge to uat branch
+        uses: devmasx/merge-branch@v1.1.0
+        with:
+          type: now
+          target_branch: 'master'
+        env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+
+
