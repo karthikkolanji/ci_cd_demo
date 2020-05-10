@@ -65,7 +65,7 @@ jobs:
           project: Example Project
           project-column: To do
           draft: false
-          branch: example-patches
+          branch: master
           request-to-parent: false
 
       - name: Check outputs
