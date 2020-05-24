@@ -3,7 +3,7 @@ name: Regression buid workflow
 on:
   push:
     branches:
-      - 'release'
+      - 'release2'
 
 jobs:
   build:
