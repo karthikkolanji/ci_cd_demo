@@ -10,7 +10,6 @@ jobs:
     name: Make release apk and upload it to Drive , Slack & send Mail to organization about regression build
     runs-on: ubuntu-latest
 
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
