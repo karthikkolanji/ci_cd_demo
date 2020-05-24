@@ -43,6 +43,6 @@ jobs:
          from: karthik@okcredit.in
 
       - name: Send Mail Action Response
-       run: echo "${{ steps.sendmail.outputs.response }}"
+        run: echo "${{ steps.sendmail.outputs.response }}"
 
 
