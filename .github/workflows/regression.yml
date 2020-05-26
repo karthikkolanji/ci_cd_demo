@@ -32,7 +32,7 @@ jobs:
 
 
       - name: Publishing app to Playstore
-        run: bash ./gradlew assembleDebugApk
+        run: bash ./gradlew assembleDebug
 
 
       - name: Upload APK to Google Drive
