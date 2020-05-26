@@ -31,6 +31,18 @@ jobs:
         run: python release_mail_generator.py ${{ secrets.GITHUB_TOKEN }}  v2.21
 
 
+      - name: Publishing app to Playstore
+        run: bash ./gradlew assembleDebugApk
+
+
+      - name: Upload APK to Google Drive
+        uses: satackey/action-google-drive@v1
+        with:
+          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+          upload-from: /Users/karthikkolanji/Downloads/CI_CD_DemoApp/app/build/outputs/apk/debug/app-debug.apk
+          upload-to: /Temp
+
+
       - name: Send Mail Action
         id: sendmail
         uses: vineetchoudhary/mailgun-action@v1.0
