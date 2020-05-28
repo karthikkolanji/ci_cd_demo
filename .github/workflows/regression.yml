@@ -28,7 +28,7 @@ jobs:
          pip install -r .github/workflows/requirements.txt
 
       - name: Make Gradle executable
-         run: chmod +x ./gradlew
+        run: chmod +x ./gradlew
 
       - name: Build QA APK
         run: bash ./gradlew assembleDebug
