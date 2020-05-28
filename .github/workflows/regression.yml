@@ -25,19 +25,13 @@ jobs:
           pip install -r .github/workflows/requirements.txt
 
 
-      - name: Generate Change logs HTML format
-        id: changelog
-        working-directory: .github/workflows/
-        run: python change_log_script.py ${{ secrets.GITHUB_TOKEN }}  v2.21  ${{ secrets.GOOGLE_DRIVE_SHARE_LINK }} ${{ needs.release_build.outputs.apk_name }}
+     - name: Build QA APK
+       run: bash ./gradlew assembleDebug
 
 
-      - name: Send Mail
-        id: sendmail
-        uses: vineetchoudhary/mailgun-action@v1.0
-        with:
-          api-key: ${{ secrets.MAIL_GUN_API }}
-          domain: ${{ secrets.MAIL_GUN_DOMAIN }}
-          to: karthik.kolanji90@gmail.com
-          from: karthik@okcredit.in
-          subject: Android ${{ needs.release_build.outputs.milestone_name }} release
-          body: ${{ steps.changelog.outputs.changelog }}
+     - name: Upload APK to Google Drive
+       uses: satackey/action-google-drive@v1
+       with:
+       skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+       upload-from: app/build/outputs/apk/debug/app-debug.apk
+       upload-to: /TEMP1/v2.22.0/PLAY_STORE/QA
