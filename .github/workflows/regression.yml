@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    if: github.event.label.name == 'regression'
+    #if: github.event.label.name == 'regression'
     name: Make release apk and upload it to Drive , Slack & send Mail to organization about regression build
     runs-on: ubuntu-latest
 
